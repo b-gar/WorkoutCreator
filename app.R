@@ -40,10 +40,8 @@ ui <- miniPage(
   )
 )
 
-options(gargle_oauth_cache = ".secrets");
-gargle::gargle_oauth_cache()
 gm_auth_configure(path = "credentials/credentials.json")
-gm_auth()
+gm_auth(email = "shiny.workoutcreator@gmail.com", cache = ".secrets")
 
 server <- function(input, output, session) {
   
