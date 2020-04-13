@@ -17,12 +17,14 @@ ui <- miniPage(
     miniTabPanel("Kettlebell", icon = icon("weight-hanging"),
                  miniContentPanel(
                    fillRow(
-                     radioButtons("kdifficulty", "Select Difficulty", choices = c("Beginner", "Intermediate", "Advanced"),
-                                  selected = "Beginner"),
-                     sliderInput("kduration", "Select Exercise Duration", min = 5, max = 60, step = 5, value = 20)
-                   ),
-                   fillRow(
-                     actionButton("kcreate", "Create Workout", icon = icon("magic"), width = "100%")
+                     fillCol(
+                       radioButtons("kdifficulty", "Select Difficulty", choices = c("Beginner", "Intermediate", "Advanced"),
+                                    selected = "Beginner"),
+                       actionButton("kcreate", "Create Workout", icon = icon("magic"), width = "100%")
+                     ),
+                     fillCol(
+                       sliderInput("kduration", "Select Exercise Duration", min = 5, max = 60, step = 5, value = 20)
+                     )
                    )
                  )
     ),
