@@ -56,9 +56,9 @@ server <- function(input, output, session) {
     use_secret_file("credentials.json")
     email <- gm_mime(
       To = input$email,
-      From = "",
-      Subject = "",
-      body = ""
+      From = "wrfb28@gmail.com",
+      Subject = "test",
+      body = "test"
     )
     gm_send_message(email)
   })
