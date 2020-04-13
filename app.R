@@ -6,56 +6,39 @@ library(dplyr)
 keys <- read.csv("tokens.csv")
 Sys.setenv(TWILIO_SID = keys$sid[1])
 Sys.setenv(TWILIO_TOKEN = keys$token[1])
+fromNumber <- "18646252951"
 
 ui <- miniPage(
-  gadgetTitleBar("Shiny gadget example"),
+  miniTitleBar("Workout Creator"),
   miniTabstripPanel(
-    miniTabPanel("Home", icon = icon("sliders"),
+    miniTabPanel("Home", icon = icon("home"),
                  miniContentPanel(
-                    
+                    fillRow(
+                      radioButtons("difficulty", "Select Difficulty", choices = c("Beginner", "Intermediate", "Advanced")),
+                      sliderInput("time", "Select Exercise Duration", min = 5, max = 60, step = 5, value = 20)
+                    )
                  )
     ),
-    miniTabPanel("Visualize", icon = icon("area-chart"),
+    miniTabPanel("Kettlebell", icon = icon("weight-hanging"),
                  miniContentPanel(
                    plotOutput("cars", height = "100%")
                  )
     ),
-    miniTabPanel("Map", icon = icon("map-o"),
-                 miniContentPanel(padding = 0,
-                                  leafletOutput("map", height = "100%")
-                 ),
-                 miniButtonBlock(
-                   actionButton("resetMap", "Reset")
-                 )
-    ),
-    miniTabPanel("Data", icon = icon("table"),
+    miniTabPanel("Info", icon = icon("question-circle"),
                  miniContentPanel(
-                   DT::dataTableOutput("table")
+                    
                  )
     )
   )
 )
 
 server <- function(input, output, session) {
-  output$cars <- renderPlot({
-    require(ggplot2)
-    ggplot(cars, aes(speed, dist)) + geom_point()
-  })
   
-  output$map <- renderLeaflet({
-    force(input$resetMap)
-    
-    leaflet(quakes, height = "100%") %>% addTiles() %>%
-      addMarkers(lng = ~long, lat = ~lat)
-  })
+  # Get Workout in Correct Format
   
-  output$table <- DT::renderDataTable({
-    diamonds
-  })
   
-  observeEvent(input$done, {
-    stopApp(TRUE)
-  })
+  #tw_send_message(from = fromNumber, to = input$phone, body = "")
+
 }
 
 runGadget(shinyApp(ui, server))
