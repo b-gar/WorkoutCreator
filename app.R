@@ -11,25 +11,36 @@ ui <- miniPage(
   miniTabstripPanel(
     miniTabPanel("Bodyweight", icon = icon("walking"),
                  miniContentPanel(
-                    fillRow(
-                      fillCol(
-                        radioButtons("difficulty", "Select Difficulty", choices = c("Beginner", "Intermediate", "Advanced"), 
-                                     selected = "Beginner"),
-                        textInput("phone", "Phone Number", width = "80%"),
-                        actionButton("textMe", "Send")
-                        
-                      ),
-                      fillCol(
-                        sliderInput("time", "Select Exercise Duration", min = 5, max = 60, step = 5, value = 20),
-                        textInput("email", "Email Address", width = "80%"),
-                        actionButton("emailMe", "Send")
-                      )
-                    )
+                   
                  )
     ),
     miniTabPanel("Kettlebell", icon = icon("weight-hanging"),
                  miniContentPanel(
-                   
+                   fillRow(
+                     fillCol(
+                       radioButtons("kdifficulty", "Select Difficulty", choices = c("Beginner", "Intermediate", "Advanced"),
+                                    selected = "Beginner")
+                       
+                     ),
+                     fillCol(
+                       sliderInput("kduration", "Select Exercise Duration", min = 5, max = 60, step = 5, value = 20)
+                     )
+                   )
+                 )
+    ),
+    miniTabPanel("share", icon = icon("share-square"),
+                 miniContentPanel(
+                   fillCol(
+                     fillRow(
+                       textInput("phone", "Phone Number", width = "80%"),
+                       textInput("email", "Email Address", width = "80%")
+                       
+                     ),
+                     fillRow(
+                       actionButton("textMe", "Send"),
+                       actionButton("emailMe", "Send")
+                     )
+                   )
                  )
     ),
     miniTabPanel("Info", icon = icon("question-circle"),
@@ -45,7 +56,21 @@ gm_auth(email = "shiny.workoutcreator@gmail.com", cache = ".secrets")
 
 server <- function(input, output, session) {
   
-  # Get Workout in Correct Format
+  # Get Number of Exercises Based Off Inputs
+  numExercises <- reactive({
+    if (input$kdifficulty == "Beginner"){
+      exTot <- floor(input$kduration/2.75)
+      return(exTot)
+    }
+    else if(input$kdifficulty == "Intermediate") {
+      exTot <- floor(input$kduration/3.42)
+      return(exTot)
+    }
+    else {
+      exTot <- floor(input$kduration/4.42)
+      return(exTot)
+    }
+  })
   
   # Text It
   observeEvent(input$textMe,{
