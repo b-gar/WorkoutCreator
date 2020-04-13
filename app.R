@@ -4,6 +4,7 @@ library(twilio)
 library(gmailr)
 library(dplyr)
 
+kbdf <- read.csv("kbexercises.csv")
 fromNumber <- "18646252951"
 
 ui <- miniPage(
@@ -70,6 +71,11 @@ server <- function(input, output, session) {
       exTot <- floor(input$kduration/4.42)
       return(exTot)
     }
+  })
+  
+  # Get Random KB Exercises
+  kbexercises <- eventReactive(input$kcreate, {
+    
   })
   
   # Text It
