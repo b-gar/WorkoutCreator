@@ -41,4 +41,4 @@ server <- function(input, output, session) {
 
 }
 
-runGadget(shinyApp(ui, server))
+shinyApp(ui, server)
