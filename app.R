@@ -12,10 +12,15 @@ ui <- miniPage(
     miniTabPanel("Bodyweight", icon = icon("walking"),
                  miniContentPanel(
                     fillRow(
-                      radioButtons("difficulty", "Select Difficulty", choices = c("Beginner", "Intermediate", "Advanced"), selected = 1),
-                      sliderInput("time", "Select Exercise Duration", min = 5, max = 60, step = 5, value = 20),
-                      textInput("phone", "Text Me the Workout"),
-                      textInput("email", "Email Me the Workout")
+                      fillCol(
+                        radioButtons("difficulty", "Select Difficulty", choices = c("Beginner", "Intermediate", "Advanced"), selected = 1),
+                        textInput("phone", "Text Me the Workout")
+                        
+                      ),
+                      fillCol(
+                        sliderInput("time", "Select Exercise Duration", min = 5, max = 60, step = 5, value = 20),
+                        textInput("email", "Email Me the Workout")
+                      )
                     )
                  )
     ),
