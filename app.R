@@ -39,6 +39,9 @@ ui <- miniPage(
   )
 )
 
+gm_auth_configure(path = "credentials.json");
+gm_auth(email = "wrfb28@gmail.com", cache = ".secrets")
+
 server <- function(input, output, session) {
   
   # Get Workout in Correct Format
@@ -53,7 +56,7 @@ server <- function(input, output, session) {
   
   # Email It
   observeEvent(input$emailMe, {
-    use_secret_file("credentials.json")
+
     email <- gm_mime(
       To = input$email,
       From = "wrfb28@gmail.com",
