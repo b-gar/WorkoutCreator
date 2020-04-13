@@ -4,7 +4,6 @@ library(twilio)
 library(gmailr)
 library(dplyr)
 
-use_secret_file("credentials.json")
 fromNumber <- "18646252951"
 
 ui <- miniPage(
@@ -14,7 +13,9 @@ ui <- miniPage(
                  miniContentPanel(
                     fillRow(
                       radioButtons("difficulty", "Select Difficulty", choices = c("Beginner", "Intermediate", "Advanced"), selected = 1),
-                      sliderInput("time", "Select Exercise Duration", min = 5, max = 60, step = 5, value = 20)
+                      sliderInput("time", "Select Exercise Duration", min = 5, max = 60, step = 5, value = 20),
+                      textInput("phone", "Text Me the Workout"),
+                      textInput("email", "Email Me the Workout")
                     )
                  )
     ),
@@ -45,6 +46,7 @@ server <- function(input, output, session) {
   
   # Email It
   observeEvent(input$emailMe, {
+    use_secret_file("credentials.json")
     email <- gm_mime(
       To = input$email,
       From = "",
