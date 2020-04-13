@@ -14,12 +14,14 @@ ui <- miniPage(
                     fillRow(
                       fillCol(
                         radioButtons("difficulty", "Select Difficulty", choices = c("Beginner", "Intermediate", "Advanced"), selected = 1),
-                        textInput("phone", "Text Me the Workout")
+                        textInput("phone", "Text Me the Workout"),
+                        actionButton("textMe", "Send")
                         
                       ),
                       fillCol(
                         sliderInput("time", "Select Exercise Duration", min = 5, max = 60, step = 5, value = 20),
-                        textInput("email", "Email Me the Workout")
+                        textInput("email", "Email Me the Workout"),
+                        actionButton("emailMe", "Send")
                       )
                     )
                  )
