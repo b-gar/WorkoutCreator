@@ -14,13 +14,13 @@ ui <- miniPage(
                     fillRow(
                       fillCol(
                         radioButtons("difficulty", "Select Difficulty", choices = c("Beginner", "Intermediate", "Advanced"), selected = 1),
-                        textInput("phone", "Text Me the Workout", width = "80%"),
+                        textInput("phone", "Phone Number", width = "80%"),
                         actionButton("textMe", "Send")
                         
                       ),
                       fillCol(
                         sliderInput("time", "Select Exercise Duration", min = 5, max = 60, step = 5, value = 20),
-                        textInput("email", "Email Me the Workout", width = "80%"),
+                        textInput("email", "Email Address", width = "80%"),
                         actionButton("emailMe", "Send")
                       )
                     )
@@ -48,7 +48,7 @@ server <- function(input, output, session) {
     keys <- read.csv("tokens.csv")
     Sys.setenv(TWILIO_SID = keys$sid[1])
     Sys.setenv(TWILIO_TOKEN = keys$token[1])
-    tw_send_message(from = fromNumber, to = input$phone, body = "")
+    tw_send_message(from = fromNumber, to = input$phone, body = "test")
   })
   
   # Email It
