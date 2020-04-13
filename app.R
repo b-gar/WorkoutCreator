@@ -13,7 +13,7 @@ ui <- miniPage(
                  miniContentPanel(
                     fillRow(
                       fillCol(
-                        radioButtons("difficulty", "Select Difficulty", choices = c("Beginner", "Intermediate", "Advanced"), selected = 1),
+                        radioButtons("difficulty", "Select Difficulty", choices = c("Beginner", "Intermediate", "Advanced"), selected = "Beginner"),
                         textInput("phone", "Phone Number", width = "80%"),
                         actionButton("textMe", "Send")
                         
