@@ -40,8 +40,10 @@ ui <- miniPage(
   )
 )
 
+options(gargle_oauth_cache = ".secrets");
+gargle::gargle_oauth_cache()
 gm_auth_configure(path = "credentials/credentials.json")
-gm_auth(email = "wrfb28@gmail.com", cache = ".secrets")
+gm_auth()
 
 server <- function(input, output, session) {
   
