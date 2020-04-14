@@ -23,7 +23,7 @@ ui <- miniPage(
                                  selected = "Beginner"),
                     sliderInput("kduration", "Select Exercise Duration", min = 5, max = 60, step = 5, value = 20),
                     miniButtonBlock(actionButton("kcreate", "Create Workout", icon = icon("magic"), width = "100%")),
-                    withSpinner(div(DTOutput("kbtable"), style = "font-size: 75%; width: 75%"), type = 7, color = "blue", size = 1)
+                    withSpinner(tableOutput("kbtable"), type = 7, color = "blue", size = 1)
                    
                  )
     ),
@@ -91,8 +91,7 @@ server <- function(input, output, session) {
   })
   
   # KB Table Output
-  output$kbtable <- renderDT(kbexercises(), rownames = FALSE, extensions = c("Buttons"), 
-                             options = list(dom = "ti", scroller=TRUE, bPaginate=FALSE, autoWidth = TRUE))
+  output$kbtable <- renderTable(kbexercises())
   
   # Text It
   observeEvent(input$textMe,{
