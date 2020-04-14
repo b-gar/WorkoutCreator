@@ -1,5 +1,7 @@
 library(shiny)
 library(miniUI)
+library(shinycssloaders)
+library(DT)
 library(twilio)
 library(gmailr)
 library(dplyr)
@@ -19,12 +21,14 @@ ui <- miniPage(
                  miniContentPanel(
                    fillRow(
                      fillCol(
+                       h1("test"),
                        radioButtons("kdifficulty", "Select Difficulty", choices = c("Beginner", "Intermediate", "Advanced"),
                                     selected = "Beginner"),
                        actionButton("kcreate", "Create Workout", icon = icon("magic"), width = "100%")
                      ),
                      fillCol(
-                       sliderInput("kduration", "Select Exercise Duration", min = 5, max = 60, step = 5, value = 20)
+                       sliderInput("kduration", "Select Exercise Duration", min = 5, max = 60, step = 5, value = 20),
+                       DTOutput(kbtable)
                      )
                    )
                  )
@@ -73,10 +77,27 @@ server <- function(input, output, session) {
     }
   })
   
-  # Get Random KB Exercises
-  kbexercises <- eventReactive(input$kcreate, {
-    
+  # Get Number of Seconds for Exercise Based Off Input
+  numSeconds <- reactive({
+    if(input$kdifficulty=="Beginner"){
+      return(20)
+    }
+    else if(input$kdifficulty=="Intermediate"){
+      return(30)
+    }
+    else {
+      return(45)
+    }
   })
+
+  # Get Random KB Exercises in DF
+  kbexercises <- eventReactive(input$kcreate, {
+    kbdf %>% group_by(Focus) %>% sample_n(ceiling(numExercises()/3)) %>% ungroup() %>% sample_n(numExercises()) %>% 
+      slice(sample(1:n())) %>% transmute(Exercise = Exercise, Sets = 4, Time = numSeconds(), RestBetweenSets = 10, RestBetweenExercises = 55)
+  })
+  
+  # KB Table Output
+  output$kbtable <- renderDT(kbexercises())
   
   # Text It
   observeEvent(input$textMe,{
@@ -89,12 +110,11 @@ server <- function(input, output, session) {
   # Email It
   observeEvent(input$emailMe, {
 
-    email <- gm_mime(
-      To = input$email,
-      From = "wrfb28@gmail.com",
-      Subject = "test",
-      body = "test"
-    )
+    email <- gm_mime() %>%
+      gm_to(input$email) %>%
+      gm_from("shiny.workoutcreator@gmail.com") %>%
+      gm_text_body("See attached workout") %>%
+      gm_attach_file()
     gm_send_message(email)
   })
 }
