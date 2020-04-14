@@ -94,12 +94,17 @@ server <- function(input, output, session) {
   # KB Table Output
   output$kbtable <- renderTable(kbexercises(), spacing = "xs", align = "l", digits = 0)
   
+  # Twilio Text of Table
+  twilioBody <- reactive({
+    kbexercises() %>% select(Exercise)
+  })
+  
   # Text It
   observeEvent(input$textMe,{
     keys <- read.csv("tokens.csv")
     Sys.setenv(TWILIO_SID = keys$sid[1])
     Sys.setenv(TWILIO_TOKEN = keys$token[1])
-    tw_send_message(from = fromNumber, to = input$phone, body = kbexercises())
+    tw_send_message(from = fromNumber, to = input$phone, body = twilioBody())
   })
   
   # Email It
