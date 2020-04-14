@@ -22,8 +22,9 @@ ui <- miniPage(
                     radioButtons("kdifficulty", "Select Difficulty", choices = c("Beginner", "Intermediate", "Advanced"),
                                  selected = "Beginner"),
                     sliderInput("kduration", "Select Exercise Duration", min = 5, max = 60, step = 5, value = 20),
-                    withSpinner(DTOutput("kbtable"), type = 7, color = "blue", size = 1),
-                   miniButtonBlock(actionButton("kcreate", "Create Workout", icon = icon("magic"), width = "100%"))
+                    miniButtonBlock(actionButton("kcreate", "Create Workout", icon = icon("magic"), width = "100%")),
+                    withSpinner(DTOutput("kbtable"), type = 7, color = "blue", size = 1)
+                   
                  )
     ),
     miniTabPanel("share", icon = icon("share-square"),
@@ -90,7 +91,8 @@ server <- function(input, output, session) {
   })
   
   # KB Table Output
-  output$kbtable <- renderDT(kbexercises())
+  output$kbtable <- renderDT(kbexercises(), rownames = FALSE, extensions = c("Buttons"), 
+                             options = list(scroller=TRUE, bPaginate=FALSE)) %>% formatStyle("font-size"= "10px")
   
   # Text It
   observeEvent(input$textMe,{
