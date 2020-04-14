@@ -4,6 +4,7 @@ library(shinycssloaders)
 library(DT)
 library(twilio)
 library(gmailr)
+library(tableHTML)
 library(dplyr)
 
 kbdf <- read.csv("kbexercises.csv")
@@ -103,13 +104,14 @@ server <- function(input, output, session) {
   
   # Email It
   observeEvent(input$emailMe, {
-
+    atchm <- tableHTML(kbexercises())
+    html_bod <- paste0("<p> Your workout: </p>", atchm)
     email <- gm_mime() %>%
       gm_to(input$email) %>%
       gm_from("shiny.workoutcreator@gmail.com") %>%
       gm_subject("Your Workout") %>%
       gm_text_body("See attached workout") %>%
-      gm_attach_file(kbexercises())
+      gm_attach_file(html_bod)
     gm_send_message(email)
   })
 }
