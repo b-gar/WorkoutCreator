@@ -23,7 +23,7 @@ ui <- miniPage(
                                  selected = "Beginner"),
                     sliderInput("kduration", "Select Exercise Duration", min = 5, max = 60, step = 5, value = 20),
                     miniButtonBlock(actionButton("kcreate", "Create Workout", icon = icon("magic"), width = "100%")),
-                    withSpinner(div(DTOutput("kbtable"), style = "font-size: 75%; width: 75%"), type = 7, color = "blue", size = 1)
+                    withSpinner(tableOutput("kbtable"), type = 7, color = "blue", size = 1)
                    
                  )
     ),
@@ -87,12 +87,11 @@ server <- function(input, output, session) {
   # Get Random KB Exercises in DF
   kbexercises <- eventReactive(input$kcreate, {
     kbdf %>% group_by(Focus) %>% sample_n(ceiling(numExercises()/3)) %>% ungroup() %>% sample_n(numExercises()) %>% 
-      slice(sample(1:n())) %>% transmute(Exercise = Exercise, Sets = 4, Time = numSeconds(), SetRest = 10, ExerciseRest = 55)
+      slice(sample(1:n())) %>% transmute(Exercise = Exercise, Sets = 4, Time = numSeconds(), RestBetweenSets = 10, RestBetweenExercises = 55)
   })
   
   # KB Table Output
-  output$kbtable <- renderDT(kbexercises(), rownames = FALSE, extensions = c("Responsive"),
-                             options = list(dom = "t", scroller=TRUE, scrollY=200, bPaginate=FALSE, autoWidth = TRUE))
+  output$kbtable <- renderTable(kbexercises(), spacing = "xs", align = "l", digits = 0)
   
   # Text It
   observeEvent(input$textMe,{
