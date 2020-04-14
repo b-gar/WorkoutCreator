@@ -87,11 +87,11 @@ server <- function(input, output, session) {
   # Get Random KB Exercises in DF
   kbexercises <- eventReactive(input$kcreate, {
     kbdf %>% group_by(Focus) %>% sample_n(ceiling(numExercises()/3)) %>% ungroup() %>% sample_n(numExercises()) %>% 
-      slice(sample(1:n())) %>% transmute(Exercise = Exercise, Sets = 4, Time = numSeconds(), RestBetweenSets = 10, RestBetweenExercises = 55)
+      slice(sample(1:n())) %>% transmute(Exercise = Exercise, Sets = 4, Time = numSeconds(), SetRest = 10, ExerciseRest = 55)
   })
   
   # KB Table Output
-  output$kbtable <- renderTable(kbexercises(), width = "100%", digits = 0)
+  output$kbtable <- renderTable(kbexercises(), width = "100%", digits = 0, bordered = TRUE)
   
   # Text It
   observeEvent(input$textMe,{
