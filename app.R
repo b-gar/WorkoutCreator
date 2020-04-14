@@ -98,7 +98,7 @@ server <- function(input, output, session) {
     keys <- read.csv("tokens.csv")
     Sys.setenv(TWILIO_SID = keys$sid[1])
     Sys.setenv(TWILIO_TOKEN = keys$token[1])
-    tw_send_message(from = fromNumber, to = input$phone, body = "test")
+    tw_send_message(from = fromNumber, to = input$phone, body = kbexercises())
   })
   
   # Email It
@@ -107,8 +107,9 @@ server <- function(input, output, session) {
     email <- gm_mime() %>%
       gm_to(input$email) %>%
       gm_from("shiny.workoutcreator@gmail.com") %>%
+      gm_subject("Your Workout") %>%
       gm_text_body("See attached workout") %>%
-      gm_attach_file()
+      gm_attach_file(kbexercises())
     gm_send_message(email)
   })
 }
