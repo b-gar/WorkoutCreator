@@ -18,7 +18,7 @@ ui <- miniPage(
                  )
     ),
     miniTabPanel("Kettlebell", icon = icon("weight-hanging"),
-                 miniContentPanel(padding = 0,
+                 miniContentPanel(
                     radioButtons("kdifficulty", "Select Difficulty", choices = c("Beginner", "Intermediate", "Advanced"),
                                  selected = "Beginner"),
                     sliderInput("kduration", "Select Exercise Duration", min = 5, max = 60, step = 5, value = 20),
@@ -91,7 +91,7 @@ server <- function(input, output, session) {
   })
   
   # KB Table Output
-  output$kbtable <- renderTable(kbexercises(), width = "100%", digits = 0, bordered = TRUE, spacing = "xs")
+  output$kbtable <- renderTable(kbexercises(), width = "80%", digits = 0, bordered = TRUE, spacing = "xs")
   
   # Text It
   observeEvent(input$textMe,{
