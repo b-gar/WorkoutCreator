@@ -110,7 +110,7 @@ server <- function(input, output, session) {
       gm_to(input$email) %>%
       gm_from("shiny.workoutcreator@gmail.com") %>%
       gm_subject("Your Workout") %>%
-      gm_attach_file(html_bod) %>%
+      gm_html_body(html_bod) %>%
       gm_send_message()
   })
 }
