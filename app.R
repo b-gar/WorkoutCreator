@@ -93,19 +93,19 @@ server <- function(input, output, session) {
   
   # KB Table Output
   output$kbtable <- renderTable(kbexercises(), spacing = "xs", align = "l", digits = 0)
+  atchm <- tableHTML(kbexercises())
+  html_bod <- paste0("<p> Your workout: </p>", atchm)
   
   # Text It
   observeEvent(input$textMe,{
     keys <- read.csv("tokens.csv")
     Sys.setenv(TWILIO_SID = keys$sid[1])
     Sys.setenv(TWILIO_TOKEN = keys$token[1])
-    tw_send_message(from = fromNumber, to = input$phone, body = kbexercises())
+    tw_send_message(from = fromNumber, to = input$phone, body = html_bod)
   })
   
   # Email It
   observeEvent(input$emailMe, {
-    atchm <- tableHTML(kbexercises())
-    html_bod <- paste0("<p> Your workout: </p>", atchm)
     gm_mime() %>%
       gm_to(input$email) %>%
       gm_from("shiny.workoutcreator@gmail.com") %>%
