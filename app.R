@@ -92,7 +92,7 @@ server <- function(input, output, session) {
   
   # KB Table Output
   output$kbtable <- renderDT(kbexercises(), rownames = FALSE, extensions = c("Buttons"), 
-                             options = list(scroller=TRUE, bPaginate=FALSE)) %>% formatStyle("font-size"= "10px")
+                             options = list(scroller=TRUE, bPaginate=FALSE)) %>% formatStyle(columns = c(1:5), "font-size"= "10px")
   
   # Text It
   observeEvent(input$textMe,{
