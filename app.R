@@ -91,7 +91,7 @@ server <- function(input, output, session) {
   })
   
   # KB Table Output
-  output$kbtable <- renderTable(kbexercises())
+  output$kbtable <- renderTable(kbexercises(), width = "100%", digits = 0)
   
   # Text It
   observeEvent(input$textMe,{
