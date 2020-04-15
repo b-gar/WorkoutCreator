@@ -49,7 +49,7 @@ ui <- miniPage(
                     br(),
                     br(),
                     h3("Understanding the Workout:"),
-                    img(src="example.png", height = "50%", width = "50%"),   
+                    img(src="example.png"),   
                     h5("Start workout from top to bottom. Do the 1st exercise for the Time listed, rest for SetRest duration. 
                        Repeat this for as many times listed under sets. Then rest for the ExRest duration. 
                        Move on to the next exercise and repeat."),
