@@ -10,7 +10,7 @@ df <- read.csv("exercises.csv")
 
 # Function to Validate Email Address
 isValidEmail <- function(x) {
-  grepl("\\<[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\>", as.character(x), ignore.case=TRUE)
+  grepl("^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$", as.character(x))
 }
 ui <- miniPage(
   miniTitleBar("Workout Creator"),
