@@ -36,9 +36,9 @@ ui <- miniPage(
                      ),
                      fillCol(
                        verbatimTextOutput("emailCheck"),
-                       verbatimTextOutput("haveWorkout")
-                     ),
-                     miniButtonBlock(actionButton("emailMe", "Send", width = "100%"))
+                       verbatimTextOutput("haveWorkout"),
+                       miniButtonBlock(actionButton("emailMe", "Send", width = "100%"))
+                     )
                    )
                  )
     ),
