@@ -169,6 +169,7 @@ server <- function(input, output, session) {
       gm_subject("Your Workout") %>%
       gm_html_body(html_bod) %>%
       gm_send_message()
+    showNotification("Message Sent")
   })
 }
 
