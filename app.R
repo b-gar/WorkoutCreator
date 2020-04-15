@@ -30,7 +30,8 @@ ui <- miniPage(
                  miniContentPanel(
                    fillCol(
                      fillRow(
-                       textInput("email", "Email Address", width = "80%")
+                       textInput("email", "Email Address", width = "80%"),
+                       verbatimTextOutput("emailCheck")
                        
                      ),
                      fillRow(
@@ -140,9 +141,13 @@ server <- function(input, output, session) {
   
   # Email It
   observeEvent(input$emailMe, {
-    validate(
-      need(isValidEmail(input$email), "Please input a valid email address")
-    )
+    output$emailCheck <- renderText({
+      validate(
+        need(isValidEmail(input$email), "Please input a valid email address")
+      )
+      "Valid Email"
+    })
+    
     atchm <- tableHTML(exercises())
     html_bod <- paste0("<p> Your workout: </p>", atchm)
     gm_mime() %>%
