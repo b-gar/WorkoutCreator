@@ -43,7 +43,7 @@ ui <- miniPage(
     miniTabPanel("Info", icon = icon("question-circle"),
                  miniContentPanel(
                     h5("---The workout table is all in seconds---"),
-                    h5("---A handful of the bodyweight exercises may need an elevated services of some kind, like a couch or chair."),
+                    h5("---A handful of the bodyweight exercises may need an elevated services of some kind, like a couch or chair.---"),
                     h5("The difficulty is based off the following:"),
                     tags$ul(
                       tags$li("Beginner: 20 second duration sets"),
