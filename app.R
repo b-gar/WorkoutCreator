@@ -29,9 +29,10 @@ ui <- miniPage(
     miniTabPanel("share", icon = icon("share-square"),
                  miniContentPanel(
                    fillCol(
-                     fillRow(flex = c(2,1),
+                     fillRow(
                        textInput("email", "Email Address", width = "80%"),
-                       verbatimTextOutput("emailCheck")
+                       verbatimTextOutput("emailCheck"),
+                       verbatimTextOutput("haveWorkout")
                        
                      ),
                      miniButtonBlock(actionButton("emailMe", "Send", width = "100%"))
@@ -137,15 +138,21 @@ server <- function(input, output, session) {
   # KB Table Output
   output$table <- renderTable(exercises(), spacing = "xs", align = "l", digits = 0)
   
-  # Check for Valid Email and Send
+  # Valid Email Check
+  output$emailCheck <- renderText({
+    validate(
+      need(isValidEmail(input$email), "Please enter a valid email address")
+    )
+    "Valid Email"
+  })
+  
+  # Send Email if One is Created
   observeEvent(input$emailMe, {
-    output$emailCheck <- renderText({
+    output$haveWorkout <- renderText({
       validate(
-        need(isValidEmail(input$email), "Please enter a valid email address")
+        need(input$create == 1, "Please create a workout before sending")
       )
-      "Valid Email"
     })
-    
     atchm <- tableHTML(exercises())
     html_bod <- paste0("<p> Your workout: </p>", atchm)
     gm_mime() %>%
