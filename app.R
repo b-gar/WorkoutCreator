@@ -51,7 +51,6 @@ ui <- miniPage(
                     h5("Start workout from top to bottom. Do the 1st exercise for the time listed, rest for the SetRest duration. 
                        Repeat this for as many times listed under sets. Then rest for the ExRest duration. 
                        Move on to the next exercise and repeat."),
-                    br(),
                     h5("So, I would do: "),
                     tags$ol(
                       tags$li("Air Squats for 20 seconds"),
