@@ -20,8 +20,8 @@ ui <- miniPage(
                  miniContentPanel(
                     radioButtons("difficulty", "Select Difficulty", choices = c("Beginner", "Intermediate", "Advanced"),
                                  selected = "Beginner"),
+                    radioButtons("equipment", "Select Equipment", choices = c("Bodyweight", "Bodyweight + Kettlebell", "Kettlebell"), selected = "Bodyweight"),
                     sliderInput("duration", "Select Exercise Duration", min = 5, max = 60, step = 5, value = 20),
-                    checkboxInput("includekb", "I have kettlebells"),
                     miniButtonBlock(actionButton("create", "Create Workout", icon = icon("magic"), width = "100%")),
                     withSpinner(tableOutput("table"), type = 7, color = "blue", size = 1)
                    
@@ -82,10 +82,23 @@ server <- function(input, output, session) {
     }
   })
 
-  # Get Random KB Exercises in DF
+  # Get Random Exercises in DF
   exercises <- eventReactive(input$create, {
-    df %>% group_by(Focus) %>% sample_n(ceiling(numExercises()/3)) %>% ungroup() %>% sample_n(numExercises()) %>% 
-      slice(sample(1:n())) %>% transmute(Exercise = Exercise, Sets = 4, Time = numSeconds(), SetRest = 10, ExRest = 55)
+    if(input$equipment == "Bodyweight"){
+      df %>% filter(Equipment == "Bodyweight") %>% group_by(Focus) %>% sample_n(ceiling(numExercises()/3)) %>% ungroup() %>% 
+        sample_n(numExercises()) %>% slice(sample(1:n())) %>% 
+        transmute(Exercise = Exercise, Sets = 4, Time = numSeconds(), SetRest = 10, ExRest = 55)
+    }
+    else if (input$equipment == "Bodyweight + Kettlebell") {
+      df %>% group_by(Focus) %>% sample_n(ceiling(numExercises()/3)) %>% ungroup() %>% 
+        sample_n(numExercises()) %>% slice(sample(1:n())) %>% 
+        transmute(Exercise = Exercise, Sets = 4, Time = numSeconds(), SetRest = 10, ExRest = 55)
+    }
+    else{
+      df %>% filter(Equipment == "Kettlebell") %>% group_by(Focus) %>% sample_n(ceiling(numExercises()/3)) %>% ungroup() %>% 
+        sample_n(numExercises()) %>% slice(sample(1:n())) %>% 
+        transmute(Exercise = Exercise, Sets = 4, Time = numSeconds(), SetRest = 10, ExRest = 55)
+    }
   })
   
   # KB Table Output
