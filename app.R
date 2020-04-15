@@ -28,12 +28,15 @@ ui <- miniPage(
     ),
     miniTabPanel("share", icon = icon("share-square"),
                  miniContentPanel(
-                   fillCol(
-                     fillRow(
+                   fillRow(
+                     fillCol(
                        textInput("email", "Email Address", width = "80%"),
+                       
+                       
+                     ),
+                     fillCol(flex = c(1,2),
                        verbatimTextOutput("emailCheck"),
                        verbatimTextOutput("haveWorkout")
-                       
                      ),
                      miniButtonBlock(actionButton("emailMe", "Send", width = "100%"))
                    )
