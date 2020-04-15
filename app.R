@@ -53,7 +53,7 @@ ui <- miniPage(
                     h5(em("This will not be perfect! Please improvise if necessary. Duration and
                                    kettlebell weight could be a huge factor in this as well.")),
                     h5(strong("Understanding the Workout:")),
-                    img(src="example.png"),
+                    img(src="/example.png"),
                     br(),
                     h5("Start workout from top to bottom. Do the 1st exercise for the time listed, rest for the SetRest duration. 
                        Repeat this for as many times listed under sets. Then rest for the ExRest duration. 
