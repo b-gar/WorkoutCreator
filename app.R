@@ -45,9 +45,9 @@ ui <- miniPage(
                       tags$li("Intermediate: 30 second duration sets"),
                       tags$li("Advanced: 45 second duration sets")
                     ),
-                    h5(HTML(paste0("<i>", "This will not be perfect! Please improvise if necessary. Duration and
-                                   kettlebell weight could be a huge factor in this as well.", "</i>"))),
-                    h5(HTML(paste0("<strong>", "Understanding the Workout:", "</strong>"))),
+                    h5(em("This will not be perfect! Please improvise if necessary. Duration and
+                                   kettlebell weight could be a huge factor in this as well.")),
+                    h5(strong("Understanding the Workout:")),
                     img(src="example.png"),
                     br(),
                     h5("Start workout from top to bottom. Do the 1st exercise for the time listed, rest for the SetRest duration. 
@@ -74,7 +74,7 @@ ui <- miniPage(
                       tags$li("Rest for 55 seconds"),
                     ),
                     br(),
-                    h5("Please send any comments or requests to: shiny.workoutcreator@gmail.com")
+                    h5("Please send any comments or requests to:", a(href="shiny.workoutcreator@gmail.com", "shiny.workoutcreator@gmail.com"))
                  )
     )
   )
