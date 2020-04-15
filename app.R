@@ -16,7 +16,7 @@ ui <- miniPage(
                     radioButtons("difficulty", "Select Difficulty", choices = c("Beginner", "Intermediate", "Advanced"),
                                  selected = "Beginner"),
                     radioButtons("equipment", "Select Equipment", choices = c("Bodyweight", "Bodyweight + Kettlebell", "Kettlebell"), selected = "Bodyweight"),
-                    sliderInput("duration", "Select Exercise Duration", min = 5, max = 60, step = 5, value = 20),
+                    sliderInput("duration", "Select Exercise Duration (min)", min = 5, max = 60, step = 5, value = 20),
                     miniButtonBlock(actionButton("create", "Create Workout", icon = icon("magic"), width = "100%")),
                     withSpinner(tableOutput("table"), type = 7, color = "blue", size = 1)
                    
@@ -37,16 +37,21 @@ ui <- miniPage(
     ),
     miniTabPanel("Info", icon = icon("question-circle"),
                  miniContentPanel(
+                    h4("The workout table is all in seconds"),
                     h4("The difficulty is based off the following:"),
                     tags$ul(
                       tags$li("Beginner: 20 second duration sets"),
                       tags$li("Intermediate: 30 second duration sets"),
                       tags$li("Advanced: 45 second duration sets")
                     ),
+                    br(),
                     h4("This will not be perfect! Please improvise if necessary. Kettlebell weight will be a huge factor in this as well."),
                     br(),
                     br(),
-                    br(),
+                    h3("Understanding the Workout:"),
+                    h5("Start workout from top to bottom. Do the 1st exercise for the Time listed, rest for SetRest duration. 
+                       Repeat this for as many times listed under sets. Then rest for the ExRest duration. 
+                       Move on to the next exercise and repeat."),
                     h5("Please send any comments or requests to: shiny.workoutcreator@gmail.com")
                  )
     )
@@ -69,7 +74,7 @@ server <- function(input, output, session) {
       return(exTot)
     }
     else {
-      exTot <- floor(input$kduration/4.42)
+      exTot <- floor(input$duration/4.42)
       return(exTot)
     }
   })
@@ -79,7 +84,7 @@ server <- function(input, output, session) {
     if(input$difficulty=="Beginner"){
       return(20)
     }
-    else if(inputkdifficulty=="Intermediate"){
+    else if(input$difficulty=="Intermediate"){
       return(30)
     }
     else {
