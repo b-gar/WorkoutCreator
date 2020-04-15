@@ -34,7 +34,7 @@ ui <- miniPage(
                        
                        
                      ),
-                     fillCol(flex = c(1,2),
+                     fillCol(
                        verbatimTextOutput("emailCheck"),
                        verbatimTextOutput("haveWorkout")
                      ),
