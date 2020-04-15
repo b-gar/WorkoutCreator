@@ -45,11 +45,10 @@ ui <- miniPage(
                       tags$li("Advanced: 45 second duration sets")
                     ),
                     h5("This will not be perfect! Please improvise if necessary. Kettlebell weight will be a huge factor in this as well."),
-                    br(),
-                    h4("Understanding the Workout:"),
+                    h5("Understanding the Workout:"),
                     img(src="example.png"),
                     br(),
-                    h5("Start workout from top to bottom. Do the 1st exercise for the Time listed, rest for SetRest duration. 
+                    h5("Start workout from top to bottom. Do the 1st exercise for the time listed, rest for the SetRest duration. 
                        Repeat this for as many times listed under sets. Then rest for the ExRest duration. 
                        Move on to the next exercise and repeat."),
                     br(),
