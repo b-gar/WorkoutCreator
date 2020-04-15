@@ -29,14 +29,12 @@ ui <- miniPage(
     miniTabPanel("share", icon = icon("share-square"),
                  miniContentPanel(
                    fillCol(
-                     fillRow(
+                     fillRow(flex = c(2,1),
                        textInput("email", "Email Address", width = "80%"),
                        verbatimTextOutput("emailCheck")
                        
                      ),
-                     fillRow(
-                       actionButton("emailMe", "Send")
-                     )
+                     miniButtonBlock(actionButton("email", "Email Address:", icon = icon("magic"), width = "100%"))
                    )
                  )
     ),
@@ -139,11 +137,11 @@ server <- function(input, output, session) {
   # KB Table Output
   output$table <- renderTable(exercises(), spacing = "xs", align = "l", digits = 0)
   
-  # Email It
+  # Check for Valid Email and Send
   observeEvent(input$emailMe, {
     output$emailCheck <- renderText({
       validate(
-        need(isValidEmail(input$email), "Please input a valid email address")
+        need(isValidEmail(input$email), "Please enter a valid email address")
       )
       "Valid Email"
     })
