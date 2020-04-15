@@ -11,12 +11,7 @@ df <- read.csv("exercises.csv")
 ui <- miniPage(
   miniTitleBar("Workout Creator"),
   miniTabstripPanel(
-    miniTabPanel("Bodyweight", icon = icon("walking"),
-                 miniContentPanel(
-                   
-                 )
-    ),
-    miniTabPanel("Kettlebell", icon = icon("weight-hanging"),
+    miniTabPanel("Workout", icon = icon("dumbbell"),
                  miniContentPanel(
                     radioButtons("difficulty", "Select Difficulty", choices = c("Beginner", "Intermediate", "Advanced"),
                                  selected = "Beginner"),
