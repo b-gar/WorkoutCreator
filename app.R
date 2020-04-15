@@ -141,7 +141,7 @@ server <- function(input, output, session) {
   # Email It
   observeEvent(input$emailMe, {
     validate(
-      need(isValidEmail(input$email), paste0("Please input a valid email address"))
+      need(isValidEmail(input$email), "Please input a valid email address")
     )
     atchm <- tableHTML(exercises())
     html_bod <- paste0("<p> Your workout: </p>", atchm)
