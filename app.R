@@ -38,9 +38,9 @@ ui <- miniPage(
     miniTabPanel("Info", icon = icon("question-circle"),
                  miniContentPanel(
                     h2("The difficulty is based off the following:"),
-                    ul("Beginner: 20 second duration sets"),
-                    ul("Intermediate: 30 second duration sets"),
-                    ul("Advanced: 45 second duration sets"),
+                    li("Beginner: 20 second duration sets"),
+                    li("Intermediate: 30 second duration sets"),
+                    li("Advanced: 45 second duration sets"),
                     h2("This will not be perfect! Please improvise if necessary. Kettlebell weight will be a huge factor in this as well."),
                     br(),
                     br(),
