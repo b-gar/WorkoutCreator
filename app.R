@@ -8,6 +8,10 @@ library(dplyr)
 
 df <- read.csv("exercises.csv")
 
+# Function to Validate Email Address
+isValidEmail <- function(x) {
+  grepl("\\<[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\>", as.character(x), ignore.case=TRUE)
+}
 ui <- miniPage(
   miniTitleBar("Workout Creator"),
   miniTabstripPanel(
@@ -136,6 +140,9 @@ server <- function(input, output, session) {
   
   # Email It
   observeEvent(input$emailMe, {
+    validate(
+      need(isValidEmail(input$email), paste0("Please input a valid email address"))
+    )
     atchm <- tableHTML(exercises())
     html_bod <- paste0("<p> Your workout: </p>", atchm)
     gm_mime() %>%
