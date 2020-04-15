@@ -74,7 +74,7 @@ ui <- miniPage(
                       tags$li("Rest for 55 seconds"),
                     ),
                     br(),
-                    h5("Please send any comments or requests to:", a(href="shiny.workoutcreator@gmail.com", "shiny.workoutcreator@gmail.com"))
+                    h5("Please send any comments or requests to:", a(href="mailto:shiny.workoutcreator@gmail.com", "shiny.workoutcreator@gmail.com"))
                  )
     )
   )
