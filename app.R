@@ -6,7 +6,7 @@ library(gmailr)
 library(tableHTML)
 library(dplyr)
 
-kbdf <- read.csv("kbexercises.csv")
+df <- read.csv("exercises.csv")
 
 ui <- miniPage(
   miniTitleBar("Workout Creator"),
@@ -18,11 +18,12 @@ ui <- miniPage(
     ),
     miniTabPanel("Kettlebell", icon = icon("weight-hanging"),
                  miniContentPanel(
-                    radioButtons("kdifficulty", "Select Difficulty", choices = c("Beginner", "Intermediate", "Advanced"),
+                    radioButtons("difficulty", "Select Difficulty", choices = c("Beginner", "Intermediate", "Advanced"),
                                  selected = "Beginner"),
-                    sliderInput("kduration", "Select Exercise Duration", min = 5, max = 60, step = 5, value = 20),
-                    miniButtonBlock(actionButton("kcreate", "Create Workout", icon = icon("magic"), width = "100%")),
-                    withSpinner(tableOutput("kbtable"), type = 7, color = "blue", size = 1)
+                    sliderInput("duration", "Select Exercise Duration", min = 5, max = 60, step = 5, value = 20),
+                    checkboxInput("includekb", "I have kettlebells"),
+                    miniButtonBlock(actionButton("create", "Create Workout", icon = icon("magic"), width = "100%")),
+                    withSpinner(tableOutput("table"), type = 7, color = "blue", size = 1)
                    
                  )
     ),
@@ -54,12 +55,12 @@ server <- function(input, output, session) {
   
   # Get Number of Exercises Based Off Inputs
   numExercises <- reactive({
-    if (input$kdifficulty == "Beginner"){
-      exTot <- floor(input$kduration/2.75)
+    if (input$difficulty == "Beginner"){
+      exTot <- floor(input$duration/2.75)
       return(exTot)
     }
-    else if(input$kdifficulty == "Intermediate") {
-      exTot <- floor(input$kduration/3.42)
+    else if(input$difficulty == "Intermediate") {
+      exTot <- floor(input$duration/3.42)
       return(exTot)
     }
     else {
@@ -70,10 +71,10 @@ server <- function(input, output, session) {
   
   # Get Number of Seconds for Exercise Based Off Input
   numSeconds <- reactive({
-    if(input$kdifficulty=="Beginner"){
+    if(input$difficulty=="Beginner"){
       return(20)
     }
-    else if(input$kdifficulty=="Intermediate"){
+    else if(inputkdifficulty=="Intermediate"){
       return(30)
     }
     else {
@@ -82,17 +83,17 @@ server <- function(input, output, session) {
   })
 
   # Get Random KB Exercises in DF
-  kbexercises <- eventReactive(input$kcreate, {
-    kbdf %>% group_by(Focus) %>% sample_n(ceiling(numExercises()/3)) %>% ungroup() %>% sample_n(numExercises()) %>% 
+  exercises <- eventReactive(input$create, {
+    df %>% group_by(Focus) %>% sample_n(ceiling(numExercises()/3)) %>% ungroup() %>% sample_n(numExercises()) %>% 
       slice(sample(1:n())) %>% transmute(Exercise = Exercise, Sets = 4, Time = numSeconds(), SetRest = 10, ExRest = 55)
   })
   
   # KB Table Output
-  output$kbtable <- renderTable(kbexercises(), spacing = "xs", align = "l", digits = 0)
+  output$table <- renderTable(exercises(), spacing = "xs", align = "l", digits = 0)
   
   # Email It
   observeEvent(input$emailMe, {
-    atchm <- tableHTML(kbexercises())
+    atchm <- tableHTML(exercises())
     html_bod <- paste0("<p> Your workout: </p>", atchm)
     gm_mime() %>%
       gm_to(input$email) %>%
