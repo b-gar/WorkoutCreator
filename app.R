@@ -6,12 +6,15 @@ library(gmailr)
 library(tableHTML)
 library(dplyr)
 
+# Load in Exercise CSV
 df <- read.csv("exercises.csv")
 
 # Function to Validate Email Address
 isValidEmail <- function(x) {
   grepl("^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$", as.character(x))
 }
+
+# Define UI
 ui <- miniPage(
   miniTitleBar("Workout Creator"),
   miniTabstripPanel(
@@ -19,7 +22,8 @@ ui <- miniPage(
                  miniContentPanel(
                     radioButtons("difficulty", "Select Difficulty", choices = c("Beginner", "Intermediate", "Advanced"),
                                  selected = "Beginner"),
-                    radioButtons("equipment", "Select Equipment", choices = c("Bodyweight", "Bodyweight + Kettlebell", "Kettlebell"), selected = "Bodyweight"),
+                    radioButtons("equipment", "Select Equipment", choices = c("Bodyweight", "Bodyweight + Kettlebell", "Kettlebell"), 
+                                 selected = "Bodyweight"),
                     sliderInput("duration", "Select Exercise Duration (min)", min = 5, max = 60, step = 5, value = 20),
                     miniButtonBlock(actionButton("create", "Create Workout", icon = icon("magic"), width = "100%")),
                     withSpinner(tableOutput("table"), type = 7, color = "blue", size = 1)
@@ -74,7 +78,8 @@ ui <- miniPage(
                       tags$li("Rest for 55 seconds"),
                     ),
                     br(),
-                    h5("Please send any comments or requests to:", a(href="mailto:shiny.workoutcreator@gmail.com", "shiny.workoutcreator@gmail.com"))
+                    h5("Please send any comments or requests to:", a(href="mailto:shiny.workoutcreator@gmail.com", 
+                                                                     "shiny.workoutcreator@gmail.com"))
                  )
     )
   )
@@ -83,6 +88,7 @@ ui <- miniPage(
 gm_auth_configure(path = "credentials/credentials.json")
 gm_auth(email = "shiny.workoutcreator@gmail.com", cache = ".secrets")
 
+# Define Server
 server <- function(input, output, session) {
   
   # Get Number of Exercises Based Off Inputs
@@ -133,10 +139,10 @@ server <- function(input, output, session) {
     }
   })
   
-  # KB Table Output
+  # Table Output
   output$table <- renderTable(exercises(), spacing = "xs", align = "l", digits = 0)
   
-  # Valid Email Check
+  # Valid Email Check Text Output
   output$emailCheck <- renderText({
     validate(
       need(isValidEmail(input$email), "Please enter a valid email address")
@@ -144,7 +150,7 @@ server <- function(input, output, session) {
     "Valid Email"
   })
   
-  # Send Email if One is Created
+  # Check if Workout is Created Text Output Then Make Sure Email is Valid Before Sending
   observeEvent(input$emailMe, {
     output$haveWorkout <- renderText({
       validate(
