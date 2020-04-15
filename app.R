@@ -34,7 +34,7 @@ ui <- miniPage(
                        verbatimTextOutput("emailCheck")
                        
                      ),
-                     miniButtonBlock(actionButton("email", "Email Address:", icon = icon("magic"), width = "100%"))
+                     miniButtonBlock(actionButton("emailMe", "Send", width = "100%"))
                    )
                  )
     ),
