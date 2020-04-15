@@ -150,6 +150,9 @@ server <- function(input, output, session) {
         need(input$create == 1, "Please create a workout before sending")
       )
     })
+    validate(
+      need(isValidEmail(input$email), "This will not be seen")
+    )
     atchm <- tableHTML(exercises())
     html_bod <- paste0("<p> Your workout: </p>", atchm)
     gm_mime() %>%
