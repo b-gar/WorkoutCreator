@@ -38,14 +38,15 @@ ui <- miniPage(
     ),
     miniTabPanel("Info", icon = icon("question-circle"),
                  miniContentPanel(
-                    h5("The workout table is all in seconds"),
+                    h5("---The workout table is all in seconds---"),
                     h5("The difficulty is based off the following:"),
                     tags$ul(
                       tags$li("Beginner: 20 second duration sets"),
                       tags$li("Intermediate: 30 second duration sets"),
                       tags$li("Advanced: 45 second duration sets")
                     ),
-                    h5("This will not be perfect! Please improvise if necessary. Kettlebell weight will be a huge factor in this as well."),
+                    h5(HTML(paste0("<i>", "This will not be perfect! Please improvise if necessary. Duration and
+                                   kettlebell weight could be a huge factor in this as well.", "</i>"))),
                     h5(HTML(paste0("<strong>", "Understanding the Workout:", "</strong>"))),
                     img(src="example.png"),
                     br(),
