@@ -37,14 +37,17 @@ ui <- miniPage(
     ),
     miniTabPanel("Info", icon = icon("question-circle"),
                  miniContentPanel(
-                    h2("The difficulty is based off the following:"),
-                    tags$ul("Beginner: 20 second duration sets"),
-                    tags$ul("Intermediate: 30 second duration sets"),
-                    tags$ul("Advanced: 45 second duration sets"),
-                    h2("This will not be perfect! Please improvise if necessary. Kettlebell weight will be a huge factor in this as well."),
+                    h4("The difficulty is based off the following:"),
+                    tags$ul(
+                      tags$li("Beginner: 20 second duration sets"),
+                      tags$li("Intermediate: 30 second duration sets"),
+                      tags$li("Advanced: 45 second duration sets")
+                    ),
+                    h4("This will not be perfect! Please improvise if necessary. Kettlebell weight will be a huge factor in this as well."),
                     br(),
                     br(),
-                    h2("Please send any comments or requests to: shiny.workoutcreator@gmail.com")
+                    br(),
+                    h5("Please send any comments or requests to: shiny.workoutcreator@gmail.com")
                  )
     )
   )
