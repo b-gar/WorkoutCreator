@@ -44,9 +44,7 @@ ui <- miniPage(
                       tags$li("Intermediate: 30 second duration sets"),
                       tags$li("Advanced: 45 second duration sets")
                     ),
-                    br(),
                     h5("This will not be perfect! Please improvise if necessary. Kettlebell weight will be a huge factor in this as well."),
-                    br(),
                     br(),
                     h4("Understanding the Workout:"),
                     img(src="example.png"),
@@ -54,7 +52,6 @@ ui <- miniPage(
                     h5("Start workout from top to bottom. Do the 1st exercise for the Time listed, rest for SetRest duration. 
                        Repeat this for as many times listed under sets. Then rest for the ExRest duration. 
                        Move on to the next exercise and repeat."),
-                    br(),
                     br(),
                     h5("So, I would do: "),
                     tags$ol(
@@ -76,7 +73,6 @@ ui <- miniPage(
                       tags$li("Inchworm for 20 seconds"),
                       tags$li("Rest for 55 seconds"),
                     ),
-                    br(),
                     br(),
                     h5("Please send any comments or requests to: shiny.workoutcreator@gmail.com")
                  )
