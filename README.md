@@ -15,6 +15,6 @@ This mobile friendly app allows you to receive a random bodyweight, kettlebell, 
 * Your fitness
 
 <br>
-Feel free to lookup any of the exercises if you are unsure of how to do them. [Anthony DiLuglio](https://www.youtube.com/user/aosjeff/search?query=kettlebell) and [Onnit](https://www.youtube.com/user/OnnitLabs/search?query=kettlebell) have great kettlebell videos otherwise.
+Feel free to lookup any of the exercises if you are unsure of how to do them. [Anthony DiLuglio](https://www.youtube.com/user/aosjeff/search?query=kettlebell/) and [Onnit](https://www.youtube.com/user/OnnitLabs/search?query=kettlebell/) have great kettlebell videos otherwise.
 
 _Note: This app was intended to be used on mobile devices with small screen sizes_
